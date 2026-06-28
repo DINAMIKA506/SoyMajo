@@ -292,6 +292,14 @@
       .btn-ordy { width: 100%; justify-content: center; }
     }
 
+    /* ── DOCS GRID ── */
+    .docs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
     /* ── RESPONSIVE ── */
     @media(max-width:768px){
       .hero-grid,.two-col,.two-col-start,.como-inner,.aura-content,.docs-inner{grid-template-columns:1fr;gap:32px;}
@@ -301,6 +309,31 @@
       .cta-final{padding:48px 24px;margin:0 16px 48px;}
       .section{padding:64px 0;}
       .como-left{position:static;}
+
+      /* Invitaciones: texto primero (order 1), foto después (order 2) */
+      .two-col { display: grid; }
+      .two-col > div:first-child { order: 2; }
+      .two-col > div:last-child  { order: 1; }
+
+      /* Documentos: una columna, texto arriba, foto abajo a ancho completo */
+      .docs-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .docs-grid > div:first-child { order: 1; }
+      .docs-grid > div:last-child  {
+        order: 2;
+        width: 100%;
+      }
+      .docs-grid > div:last-child img {
+        width: 100%;
+        height: auto;
+      }
+
+      /* Asesoría: texto primero, foto después */
+      .asesoria-intro { grid-template-columns: 1fr; gap: 24px; }
+      .asesoria-intro > div:first-child { order: 1; }
+      .asesoria-intro-img { order: 2 !important; }
     }
   </style>
 </head>
@@ -630,7 +663,7 @@
 <!-- ═══════ 8. DOCUMENTOS ═══════ -->
 <section class="section" id="documentos" style="background:rgba(228,222,255,.18);">
   <div class="container">
-    <div style="display:grid;grid-template-columns:1fr 1.1fr;gap:64px;align-items:start;" class="reveal">
+    <div class="docs-grid reveal">
       <!-- Texto a la izquierda, sube al nivel del título/foto -->
       <div>
         <p class="eyebrow">Documentos</p>
