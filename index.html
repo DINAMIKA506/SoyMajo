@@ -224,6 +224,24 @@
     /* ── DOCS LAYOUT ── */
     .docs-inner{display:grid;grid-template-columns:1fr 1.1fr;gap:48px;margin-top:16px;align-items:start;}
 
+    /* ── ASESORÍA INTRO DOS COLUMNAS ── */
+    .asesoria-intro {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .asesoria-intro-img img {
+      width: 100%;
+      max-width: 520px;
+      border-radius: var(--radius-lg);
+      object-fit: contain;
+    }
+    @media(max-width:768px) {
+      .asesoria-intro { grid-template-columns: 1fr; gap: 32px; }
+      .asesoria-intro-img { order: -1; }
+    }
+
     /* ── BLOQUE ORDY ── */
     .ordy-block {
       background: linear-gradient(135deg, rgba(255,248,244,.95) 0%, rgba(244,240,255,.95) 100%);
@@ -531,11 +549,7 @@
     <!-- EVENTOS -->
     <div class="aura-content reveal" id="tab-eventos" style="display:none;">
       <div>
-        <img src="fotos/aura-eventos-main.png" alt="Aura Eventos" class="foto-main"/>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
-          <img src="fotos/aura-eventos-1.png" alt="Evento 1" class="foto-thumb"/>
-          <img src="fotos/aura-eventos-2.png" alt="Evento 2" class="foto-thumb"/>
-        </div>
+        <img src="fotos/aura-eventos-main.png" alt="Aura Eventos" style="width:100%;border-radius:var(--radius-md);object-fit:cover;"/>
       </div>
       <div>
         <h3>Contenido móvil para cuidar cómo se recuerda un momento importante.</h3>
@@ -566,7 +580,10 @@
           <div class="precio-card"><div><p class="precio-name">Airbnb Plus</p><p class="precio-sub">Hasta 60 fotos HDR · Día y noche</p></div><div class="precio-val">Desde ₡190.000</div></div>
           <div class="precio-card"><div><p class="precio-name">Premium Experience</p><p class="precio-sub">+70 fotos · Asesoría visual incluida</p></div><div class="precio-val">Desde ₡250.000</div></div>
         </div>
-        <a href="https://wa.me/50687037656?text=Quiero%20cotizar%20fotografía%20de%20mi%20espacio%20Aura" class="btn btn-primary" style="margin-top:20px;">Cotizar espacio</a>
+        <div class="btn-pair" style="margin-top:20px;">
+          <a href="https://wa.me/50687037656?text=Quiero%20cotizar%20fotografía%20de%20mi%20espacio%20Aura" class="btn btn-primary">Cotizar espacio</a>
+          <a href="https://aurainvita.com/auraenairbnb" target="_blank" class="btn btn-outline">Conocer más aquí</a>
+        </div>
         <div class="nota">El espacio debe estar limpio y ordenado antes de iniciar la sesión.</div>
       </div>
     </div>
@@ -662,45 +679,46 @@
 <section class="section" id="asesoria">
   <div class="container">
 
-    <!-- Intro -->
-    <div class="reveal" style="max-width:680px;">
-      <p class="eyebrow">Asesoría</p>
-      <h2>Ordenemos tu idea con claridad, criterio creativo y Ordy.</h2>
-      <p style="margin-top:16px;line-height:1.75;">
-        En mis asesorías te ayudo a ordenar ideas, materiales, servicios o decisiones que ya tenés dando vueltas, para convertirlas en una ruta más clara y fácil de accionar.
-      </p>
-      <p style="margin-top:12px;line-height:1.75;">
-        Además, integro Ordy, mi metodología de orden estratégico para negocios y proyectos. Esto me permite entender mejor tu caso, detectar necesidades reales, organizar la información y proponerte próximos pasos con más dirección.
-      </p>
-      <p style="margin-top:12px;line-height:1.75;">
-        Podés llegar con una idea inicial, una marca que querés mejorar, un servicio que querés vender, materiales que necesitan estructura o un proyecto que pide más claridad.
-      </p>
-      <p style="margin-top:12px;font-weight:500;color:var(--ink);font-size:.95rem;">
-        Primero escuchamos. Luego ordenamos. Y después definimos qué herramienta, material o mejora tiene más sentido para vos.
-      </p>
-    </div>
+    <!-- Intro: dos columnas — texto izq, imagen der -->
+    <div class="asesoria-intro reveal">
+      <div class="asesoria-intro-text">
+        <p class="eyebrow">Asesoría</p>
+        <h2>Asesoría estratégica con IA + rediseño</h2>
+        <p style="margin-top:16px;line-height:1.75;">
+          En mis asesorías te ayudo a ordenar ideas, materiales, servicios o decisiones que ya tenés dando vueltas, para convertirlas en una ruta más clara y fácil de accionar.
+        </p>
+        <p style="margin-top:14px;font-weight:500;color:var(--ink);font-size:.95rem;line-height:1.75;">
+          Primero escuchamos. Luego ordenamos. Y después definimos qué herramienta, material o mejora tiene más sentido para vos.
+        </p>
 
-    <!-- Bloque Ordy -->
-    <div class="ordy-block reveal" style="margin-top:40px;">
-      <div class="ordy-block-inner">
-        <div class="ordy-block-text">
-          <p class="ordy-label">✦ Metodología integrada</p>
-          <h3 style="font-family:var(--f-display);font-size:1.4rem;font-weight:700;color:var(--ink);margin-bottom:12px;">Asesorías con Ordy integrado</h3>
-          <p style="font-size:.9rem;line-height:1.75;color:var(--ink-60);">
-            Ordy es parte de mi forma de acompañar. Lo uso para ordenar la información del proyecto, identificar patrones, detectar vacíos y convertir la conversación en una guía más clara para avanzar.
-          </p>
-          <p style="font-size:.9rem;line-height:1.75;color:var(--ink-60);margin-top:10px;">
-            Así la asesoría no se queda solo en ideas: salís con más claridad sobre qué tenés, qué necesitás resolver y cuál puede ser el siguiente paso.
-          </p>
+        <!-- Bloque Ordy integrado bajo el texto -->
+        <div class="ordy-block" style="margin-top:32px;">
+          <div class="ordy-block-inner">
+            <div class="ordy-block-text">
+              <p class="ordy-label">✦ Metodología integrada</p>
+              <h3 style="font-family:var(--f-display);font-size:1.3rem;font-weight:700;color:var(--ink);margin-bottom:10px;">Asesorías con Ordy integrado</h3>
+              <p style="font-size:.88rem;line-height:1.75;color:var(--ink-60);">
+                Ordy es parte de mi forma de acompañar. Lo uso para ordenar la información del proyecto, identificar patrones, detectar vacíos y convertir la conversación en una guía más clara para avanzar.
+              </p>
+              <p style="font-size:.88rem;line-height:1.75;color:var(--ink-60);margin-top:8px;">
+                Así la asesoría no se queda solo en ideas: salís con más claridad sobre qué tenés, qué necesitás resolver y cuál puede ser el siguiente paso.
+              </p>
+            </div>
+            <div class="ordy-block-cta">
+              <a href="https://www.ordenyplan.com/" target="_blank" class="btn btn-ordy">Conocé Ordy →</a>
+            </div>
+          </div>
         </div>
-        <div class="ordy-block-cta">
-          <a href="https://www.ordenyplan.com/" target="_blank" class="btn btn-ordy">Conocé Ordy →</a>
-        </div>
+      </div>
+
+      <!-- Imagen derecha -->
+      <div class="asesoria-intro-img">
+        <img src="fotos/asesoria-principal.png" alt="Asesoría estratégica con Ordy" style="width:100%;border-radius:var(--radius-lg);object-fit:contain;"/>
       </div>
     </div>
 
     <!-- Tarjetas de precios -->
-    <div class="asesoria-grid reveal" style="margin-top:40px;">
+    <div class="asesoria-grid reveal" style="margin-top:48px;">
       <div class="asesoria-card">
         <p class="eyebrow">Básico</p>
         <p class="precio">₡45.000</p>
