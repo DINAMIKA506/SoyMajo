@@ -14,19 +14,16 @@
       --rose-d:  #F27B8A;
       --lila:    #E4DEFF;
       --lila-d:  #8B76F5;
-      --sand:    #FDF8F4;
+      --sand:    #ffffff;
       --ink:     #1A1A2E;
       --ink-60:  #1A1A2E99;
       --white:   #FFFFFF;
       --border:  #EBEBF5;
-
       --f-display: 'Playfair Display', Georgia, serif;
       --f-body:    'DM Sans', system-ui, sans-serif;
-
       --radius-sm: 12px;
       --radius-md: 20px;
       --radius-lg: 32px;
-
       --shadow-card: 0 2px 20px rgba(26,26,46,.07);
       --shadow-hover: 0 8px 40px rgba(26,26,46,.13);
     }
@@ -34,14 +31,76 @@
     /* ─── RESET ──────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
+
+    /* ─── FONDO AURA ─────────────────────────────────────── */
     body {
       font-family: var(--f-body);
-      background: var(--sand);
+      background: #ffffff;
       color: var(--ink);
       font-size: 16px;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      position: relative;
+      overflow-x: hidden;
     }
+
+    /* Orbes de fondo — efecto aura */
+    body::before,
+    body::after {
+      content: '';
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(90px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: .55;
+    }
+    body::before {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, #f0c6ff 0%, #e4b8ff 40%, transparent 70%);
+      top: -100px; left: -120px;
+      animation: driftA 18s ease-in-out infinite alternate;
+    }
+    body::after {
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, #b3b3ff 0%, #8080f5 40%, transparent 70%);
+      bottom: 10%; right: -180px;
+      animation: driftB 22s ease-in-out infinite alternate;
+    }
+    @keyframes driftA {
+      0%   { transform: translate(0,0) scale(1); }
+      50%  { transform: translate(60px, 80px) scale(1.08); }
+      100% { transform: translate(-40px, 40px) scale(.96); }
+    }
+    @keyframes driftB {
+      0%   { transform: translate(0,0) scale(1); }
+      50%  { transform: translate(-80px,-60px) scale(1.1); }
+      100% { transform: translate(40px, 30px) scale(.94); }
+    }
+
+    /* Orbe adicional central para más profundidad */
+    .aura-mid {
+      position: fixed;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #ffd6e8 0%, #ffb3d1 30%, transparent 70%);
+      filter: blur(100px);
+      top: 40%; left: 30%;
+      transform: translate(-50%,-50%);
+      pointer-events: none;
+      z-index: 0;
+      opacity: .35;
+      animation: driftC 26s ease-in-out infinite alternate;
+    }
+    @keyframes driftC {
+      0%   { transform: translate(-50%,-50%) scale(1); }
+      50%  { transform: translate(-40%,-60%) scale(1.15); }
+      100% { transform: translate(-55%,-45%) scale(.9); }
+    }
+
+    /* Todo el contenido sobre los orbes */
+    nav, section, .hero, footer, #cotizar { position: relative; z-index: 1; }
+
     img { display: block; max-width: 100%; }
     a { color: inherit; text-decoration: none; }
 
@@ -75,17 +134,11 @@
       color: var(--ink-60); font-size: .8rem; font-weight: 500;
       text-align: center; padding: 20px;
     }
-    .ph::before {
-      content: '📷';
-      font-size: 2rem;
-      display: block;
-    }
+    .ph::before { content: '📷'; font-size: 2rem; display: block; }
     .ph-hero   { height: 440px; border-radius: var(--radius-lg); }
-    .ph-card   { height: 200px; }
     .ph-mockup { height: 360px; border-radius: var(--radius-md); }
     .ph-phone  { height: 480px; width: 240px; border-radius: 28px; }
     .ph-thumb  { height: 160px; border-radius: var(--radius-sm); }
-    .ph-sq     { aspect-ratio: 1; border-radius: var(--radius-sm); }
 
     /* ─── BOTONES ────────────────────────────────────────── */
     .btn {
@@ -107,8 +160,8 @@
     /* ─── NAV ────────────────────────────────────────────── */
     nav {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(253,248,244,.92); backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,.75); backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(235,235,245,.6);
       padding: 16px 0;
     }
     .nav-inner {
@@ -121,12 +174,13 @@
     .nav-links a:hover { color: var(--ink); }
     .nav-cta { display: flex; gap: 12px; }
 
-    /* ─── 1. HERO ─────────────────────────────────────────── */
+    /* ─── HERO ───────────────────────────────────────────── */
     .hero { padding: 80px 0 64px; }
     .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
     .hero-floating-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
     .float-tag {
-      background: var(--white); border: 1px solid var(--border);
+      background: rgba(255,255,255,.8); backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
       border-radius: 999px; padding: 6px 16px; font-size: .8rem; font-weight: 500;
       box-shadow: var(--shadow-card);
       animation: floatY 3s ease-in-out infinite;
@@ -139,50 +193,11 @@
     @keyframes floatY { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
     .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
 
-    /* ─── 2. SELECTOR ────────────────────────────────────── */
-    .selector-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-top: 40px;
-    }
-    .selector-card {
-      background: var(--white); border: 1.5px solid var(--border);
-      border-radius: var(--radius-md); padding: 28px 24px;
-      transition: all .25s; cursor: pointer;
-    }
-    .selector-card:hover { border-color: var(--lila-d); box-shadow: var(--shadow-hover); transform: translateY(-4px); }
-    .selector-card .icon { font-size: 1.8rem; margin-bottom: 14px; }
-    .selector-card p { margin: 8px 0 16px; font-size: .85rem; }
-
-    /* ─── 3. PRESENTACIÓN ────────────────────────────────── */
-    .pres-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; margin-top: 48px; }
-    .steps-flow { display: flex; flex-direction: column; gap: 0; }
-    .step-item {
-      display: flex; gap: 16px; padding: 20px 0;
-      border-left: 2px solid var(--border); padding-left: 24px;
-      position: relative;
-    }
-    .step-item::before {
-      content: ''; position: absolute; left: -5px; top: 28px;
-      width: 8px; height: 8px; border-radius: 50%;
-      background: var(--lila-d);
-    }
-    .step-item:last-child { border-left-color: transparent; }
-    .quote-block {
-      background: linear-gradient(135deg, var(--lila) 0%, var(--mint) 100%);
-      border-radius: var(--radius-md); padding: 32px;
-      margin-top: 32px;
-    }
-    .quote-block p { color: var(--ink); font-size: 1.05rem; font-style: italic; }
-
-    /* ─── 4. LÍNEAS PRINCIPALES ──────────────────────────── */
-    .lineas-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 20px; margin-top: 40px;
-    }
+    /* ─── LÍNEAS PRINCIPALES ─────────────────────────────── */
+    .lineas-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 40px; }
     .linea-card {
-      background: var(--white); border: 1.5px solid var(--border);
+      background: rgba(255,255,255,.75); backdrop-filter: blur(8px);
+      border: 1.5px solid var(--border);
       border-radius: var(--radius-md); padding: 0; overflow: hidden;
       transition: all .25s;
     }
@@ -192,40 +207,76 @@
     .linea-card-body p { font-size: .85rem; margin: 8px 0 16px; }
     .linea-num { font-size: .72rem; font-weight: 700; letter-spacing: .1em; color: var(--lila-d); margin-bottom: 6px; }
 
-    /* ─── 5. MARCA ───────────────────────────────────────── */
-    .bg-mint { background: var(--mint); }
-    .bg-rose { background: var(--rose); }
-    .bg-lila { background: var(--lila); }
-    .bg-white { background: var(--white); }
+    /* ─── CÓMO TRABAJO — pasos animados ─────────────────── */
+    .como-section { padding: 96px 0; }
+    .como-inner { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: start; }
+    .como-left { position: sticky; top: 120px; }
+    .como-right { display: flex; flex-direction: column; gap: 0; }
 
+    .step-animated {
+      display: flex; gap: 24px;
+      padding: 28px 0;
+      border-left: 2px solid var(--border);
+      padding-left: 32px;
+      position: relative;
+      opacity: 0;
+      transform: translateX(-24px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    .step-animated.visible { opacity: 1; transform: translateX(0); }
+    .step-animated:last-child { border-left-color: transparent; }
+
+    .step-dot {
+      position: absolute; left: -9px; top: 34px;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: #fff; border: 2px solid var(--border);
+      transition: background .4s, border-color .4s;
+      flex-shrink: 0;
+    }
+    .step-animated.visible .step-dot {
+      background: var(--lila-d);
+      border-color: var(--lila-d);
+      box-shadow: 0 0 0 4px rgba(139,118,245,.18);
+    }
+    .step-body h4 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
+    .step-body p  { font-size: .85rem; color: var(--ink-60); }
+
+    .quote-block {
+      background: linear-gradient(135deg, rgba(228,222,255,.7) 0%, rgba(200,240,224,.7) 100%);
+      backdrop-filter: blur(8px);
+      border-radius: var(--radius-md); padding: 28px 32px;
+      margin-top: 28px;
+    }
+    .quote-block p { color: var(--ink); font-size: 1rem; font-style: italic; }
+
+    /* ─── MARCA ──────────────────────────────────────────── */
     .marca-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; margin-top: 48px; }
     .pill-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
     .pill {
-      background: var(--white); border: 1px solid var(--border);
+      background: rgba(255,255,255,.8); border: 1px solid var(--border);
       border-radius: 999px; padding: 5px 14px;
       font-size: .78rem; font-weight: 500;
     }
     .pill-mint { background: var(--mint); border-color: var(--mint-d); }
     .pill-rose { background: var(--rose); border-color: var(--rose-d); }
 
-    /* ─── 6. INVITACIONES ────────────────────────────────── */
+    /* ─── INVITACIONES ───────────────────────────────────── */
     .inv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; margin-top: 48px; }
-    .phone-scroll { display: flex; gap: 16px; overflow-x: auto; padding-bottom: 8px; }
-    .phone-scroll::-webkit-scrollbar { height: 4px; }
-    .phone-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
 
-    /* ─── 7. AURA ────────────────────────────────────────── */
+    /* ─── AURA ───────────────────────────────────────────── */
     .aura-tabs { display: flex; gap: 8px; margin-top: 32px; }
     .aura-tab {
       padding: 10px 22px; border-radius: 999px; font-size: .88rem; font-weight: 600;
-      cursor: pointer; border: 1.5px solid var(--border); background: var(--white);
+      cursor: pointer; border: 1.5px solid var(--border);
+      background: rgba(255,255,255,.7); backdrop-filter: blur(6px);
       transition: all .2s;
     }
     .aura-tab.active { background: var(--ink); color: #fff; border-color: var(--ink); }
     .aura-content { margin-top: 32px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: center; }
     .precios-stack { display: flex; flex-direction: column; gap: 12px; }
     .precio-card {
-      background: var(--white); border: 1.5px solid var(--border);
+      background: rgba(255,255,255,.8); backdrop-filter: blur(8px);
+      border: 1.5px solid var(--border);
       border-radius: var(--radius-sm); padding: 20px 24px;
       display: flex; justify-content: space-between; align-items: center;
       transition: all .2s;
@@ -236,22 +287,22 @@
     .precio-val  { font-family: var(--f-display); font-size: 1.1rem; font-weight: 700; text-align: right; }
     .precio-hrs  { font-size: .72rem; color: var(--ink-60); }
 
-    /* ─── 11. WEB ─────────────────────────────────────────── */
+    /* ─── WEB ────────────────────────────────────────────── */
     .web-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; margin-top: 48px; }
-    .puede-ser-grid { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0; }
 
-    /* ─── 12. DOCUMENTOS ─────────────────────────────────── */
+    /* ─── DOCUMENTOS ─────────────────────────────────────── */
     .docs-precios { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 32px; }
     .doc-precio-item {
-      background: var(--white); border: 1.5px solid var(--border);
+      background: rgba(255,255,255,.8); border: 1.5px solid var(--border);
       border-radius: var(--radius-sm); padding: 18px 16px;
     }
     .doc-precio-item .valor { font-family: var(--f-display); font-size: 1.3rem; font-weight: 700; margin-top: 6px; }
 
-    /* ─── 13. ASESORÍA ───────────────────────────────────── */
+    /* ─── ASESORÍA ───────────────────────────────────────── */
     .asesoria-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 32px; }
     .asesoria-card {
-      background: var(--white); border: 1.5px solid var(--border);
+      background: rgba(255,255,255,.8); backdrop-filter: blur(8px);
+      border: 1.5px solid var(--border);
       border-radius: var(--radius-md); padding: 28px;
       transition: all .25s;
     }
@@ -260,7 +311,7 @@
     .asesoria-card.featured p { color: rgba(255,255,255,.65); }
     .asesoria-card .precio { font-family: var(--f-display); font-size: 2rem; font-weight: 700; margin: 12px 0 6px; }
 
-    /* ─── 14. PROCESO ────────────────────────────────────── */
+    /* ─── PROCESO ────────────────────────────────────────── */
     .proceso-timeline {
       display: grid; grid-template-columns: repeat(4, 1fr);
       gap: 0; margin-top: 48px; position: relative;
@@ -272,7 +323,7 @@
     .proceso-step { text-align: center; padding: 0 16px; }
     .proceso-dot {
       width: 56px; height: 56px; border-radius: 50%;
-      background: var(--white); border: 2px solid var(--border);
+      background: rgba(255,255,255,.9); border: 2px solid var(--border);
       display: flex; align-items: center; justify-content: center;
       margin: 0 auto 16px; font-weight: 700; font-size: .9rem;
       position: relative; z-index: 1;
@@ -282,27 +333,25 @@
     .proceso-step h4 { font-size: .88rem; margin-bottom: 6px; }
     .proceso-step p  { font-size: .78rem; }
 
-    /* ─── 15. CONDICIONES ────────────────────────────────── */
+    /* ─── CONDICIONES ────────────────────────────────────── */
     .condiciones-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
     .condicion-card {
-      background: var(--white); border: 1.5px solid var(--border);
+      background: rgba(255,255,255,.75); backdrop-filter: blur(8px);
+      border: 1.5px solid var(--border);
       border-radius: var(--radius-md); padding: 24px;
     }
     .condicion-icon { font-size: 1.5rem; margin-bottom: 12px; }
 
-    /* ─── 16. FAQ ─────────────────────────────────────────── */
+    /* ─── FAQ ────────────────────────────────────────────── */
     .faq-list { max-width: 720px; margin: 40px auto 0; }
-    .faq-item {
-      border-bottom: 1px solid var(--border); padding: 20px 0;
-      cursor: pointer;
-    }
+    .faq-item { border-bottom: 1px solid var(--border); padding: 20px 0; cursor: pointer; }
     .faq-q { font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
     .faq-q::after { content: '+'; font-size: 1.4rem; color: var(--lila-d); }
     .faq-a { font-size: .88rem; color: var(--ink-60); margin-top: 10px; display: none; }
     .faq-item.open .faq-a { display: block; }
     .faq-item.open .faq-q::after { content: '−'; }
 
-    /* ─── 17. CTA FINAL ──────────────────────────────────── */
+    /* ─── CTA FINAL ──────────────────────────────────────── */
     .cta-final {
       background: var(--ink); color: var(--white);
       border-radius: var(--radius-lg); padding: 80px;
@@ -320,36 +369,41 @@
     footer {
       border-top: 1px solid var(--border); padding: 40px 0;
       text-align: center; font-size: .82rem; color: var(--ink-60);
+      position: relative; z-index: 1;
     }
 
     /* ─── DIVIDERS ───────────────────────────────────────── */
-    .section-divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+    .section-divider { border: none; border-top: 1px solid rgba(235,235,245,.6); margin: 0; }
 
-    /* ─── SCROLL REVEAL ──────────────────────────────────── */
+    /* ─── SCROLL REVEAL genérico ─────────────────────────── */
     .reveal { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
     .reveal.visible { opacity: 1; transform: none; }
 
+    /* ─── NOTA ───────────────────────────────────────────── */
+    .nota {
+      background: rgba(228,222,255,.5); border-radius: var(--radius-sm);
+      padding: 14px 18px; font-size: .82rem; color: var(--ink-60);
+      border-left: 3px solid var(--lila-d); margin-top: 16px;
+    }
+
     /* ─── RESPONSIVE ─────────────────────────────────────── */
     @media (max-width: 768px) {
-      .hero-grid, .pres-grid, .marca-grid, .inv-grid,
-      .web-grid, .aura-content { grid-template-columns: 1fr; gap: 32px; }
-      .selector-grid, .lineas-grid, .proceso-timeline,
-      .condiciones-grid, .asesoria-grid { grid-template-columns: 1fr; }
+      .hero-grid, .marca-grid, .inv-grid, .web-grid, .aura-content,
+      .como-inner { grid-template-columns: 1fr; gap: 32px; }
+      .lineas-grid, .proceso-timeline, .condiciones-grid,
+      .asesoria-grid { grid-template-columns: 1fr; }
       .docs-precios { grid-template-columns: 1fr 1fr; }
       .nav-links { display: none; }
       .cta-final { padding: 48px 24px; margin: 0 16px 48px; }
       .section { padding: 64px 0; }
-    }
-
-    /* ─── NOTA VISUAL ─────────────────────────────────────── */
-    .nota {
-      background: var(--lila); border-radius: var(--radius-sm);
-      padding: 16px 20px; font-size: .82rem; color: var(--ink-60);
-      border-left: 3px solid var(--lila-d); margin-top: 16px;
+      .como-left { position: static; }
     }
   </style>
 </head>
 <body>
+
+<!-- Orbe central extra -->
+<div class="aura-mid"></div>
 
 <!-- ══════════════════════════════════════════════════════════ -->
 <!-- NAV                                                        -->
@@ -359,7 +413,7 @@
     <span class="nav-logo">Soy Majo</span>
     <ul class="nav-links">
       <li><a href="#servicios">Servicios</a></li>
-      <li><a href="#proceso">Proceso</a></li>
+      <li><a href="#como-trabajo">Cómo trabajo</a></li>
       <li><a href="#precios">Precios</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
@@ -378,15 +432,12 @@
   <div class="container">
     <div class="hero-grid">
 
-      <!-- Texto -->
       <div class="reveal">
         <span class="tag">✦ Soluciones creativas</span>
         <h1>Soy Majo, tu aliada creativa.</h1>
         <p style="margin-top:20px; font-size:1.05rem; max-width:460px;">
           Creo asesorías y materiales puntuales para que tus ideas, servicios, eventos o proyectos se vean más claros, más cuidados y más listos para compartir.
         </p>
-
-        <!-- Tags flotantes -->
         <div class="hero-floating-tags">
           <span class="float-tag">✦ marca</span>
           <span class="float-tag">🌐 web</span>
@@ -395,16 +446,14 @@
           <span class="float-tag">💌 invitaciones</span>
           <span class="float-tag">💡 asesoría</span>
         </div>
-
         <div class="hero-btns">
-          <a href="#selector" class="btn btn-primary">Encontrar mi solución</a>
-          <a href="#servicios" class="btn btn-outline">Ver servicios</a>
-          <a href="#cotizar"  class="btn btn-ghost">Agendar cotización</a>
+          <a href="#servicios" class="btn btn-primary">Ver servicios</a>
+          <a href="#como-trabajo" class="btn btn-outline">Cómo trabajo</a>
+          <a href="#cotizar" class="btn btn-ghost">Agendar cotización</a>
         </div>
       </div>
 
-      <!-- Imagen principal -->
-      <div class="reveal" style="animation-delay:.2s">
+      <div class="reveal" style="transition-delay:.2s">
         <div class="ph ph-hero">Foto/mockup principal de Majo o trabajo destacado<br><small>Recomendado: 800×880px</small></div>
       </div>
 
@@ -416,107 +465,7 @@
 
 
 <!-- ══════════════════════════════════════════════════════════ -->
-<!-- 2. SELECTOR                                                -->
-<!-- ══════════════════════════════════════════════════════════ -->
-<section class="section" id="selector">
-  <div class="container">
-    <div class="reveal" style="text-align:center; max-width:600px; margin:0 auto;">
-      <p class="eyebrow">Empecemos</p>
-      <h2>¿Qué necesitás resolver?</h2>
-      <p style="margin-top:12px;">Podés llegar con una idea, una urgencia, un evento, una marca o un material a medias. Desde ahí encontramos la mejor forma de resolverlo.</p>
-    </div>
-
-    <div class="selector-grid">
-
-      <div class="selector-card reveal">
-        <div class="icon">🎨</div>
-        <h4>Necesito una marca</h4>
-        <p>Para proyectos que quieren verse más profesionales, coherentes y listos para presentarse.</p>
-        <a href="#marca" class="btn btn-ghost">Ver manual de marca</a>
-      </div>
-
-      <div class="selector-card reveal">
-        <div class="icon">💌</div>
-        <h4>Necesito una invitación digital</h4>
-        <p>Para eventos que necesitan una invitación personalizada, funcional y fácil de compartir.</p>
-        <a href="#invitaciones" class="btn btn-ghost">Ver invitaciones</a>
-      </div>
-
-      <div class="selector-card reveal">
-        <div class="icon">📷</div>
-        <h4>Necesito fotos o contenido visual</h4>
-        <p>Para personas, eventos, hospedajes y espacios que necesitan imágenes o videos útiles.</p>
-        <a href="#aura" class="btn btn-ghost">Ver Aura</a>
-      </div>
-
-      <div class="selector-card reveal">
-        <div class="icon">🌐</div>
-        <h4>Necesito una página web</h4>
-        <p>Para proyectos que necesitan una presencia digital clara, ordenada y hecha según sus objetivos.</p>
-        <a href="#web" class="btn btn-ghost">Cotizar web</a>
-      </div>
-
-      <div class="selector-card reveal">
-        <div class="icon">📊</div>
-        <h4>Necesito una presentación o documento</h4>
-        <p>Para convertir información suelta en un material visual listo para enviar o presentar.</p>
-        <a href="#documentos" class="btn btn-ghost">Ver documentos</a>
-      </div>
-
-      <div class="selector-card reveal">
-        <div class="icon">💡</div>
-        <h4>Necesito ordenar una idea</h4>
-        <p>Para revisar lo que ya tenés, entender qué falta y recibir una guía creativa con mejoras.</p>
-        <a href="#asesoria" class="btn btn-ghost">Ver asesorías</a>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<hr class="section-divider">
-
-
-<!-- ══════════════════════════════════════════════════════════ -->
-<!-- 3. PRESENTACIÓN                                            -->
-<!-- ══════════════════════════════════════════════════════════ -->
-<section class="section">
-  <div class="container">
-    <div class="pres-grid">
-
-      <!-- Texto -->
-      <div class="reveal">
-        <p class="eyebrow">Cómo trabajo</p>
-        <h2>Ideas, piezas y materiales con forma clara.</h2>
-        <p style="margin-top:16px;">
-          Soy Majo existe para acompañar proyectos que necesitan resolver algo puntual. El punto de partida siempre es el mismo: escucho qué querés lograr, ordeno la necesidad y propongo la herramienta creativa que mejor se adapta a tu caso.
-        </p>
-
-        <div class="quote-block" style="margin-top:28px;">
-          <p>"La idea es que recibás algo que podás usar: publicar, enviar, presentar, compartir o vender con más seguridad."</p>
-        </div>
-      </div>
-
-      <!-- Pasos -->
-      <div class="reveal">
-        <div class="steps-flow">
-          <div class="step-item"><div><h4>Escucho primero</h4><p style="font-size:.82rem; margin-top:4px;">Entiendo qué querés lograr antes de proponer.</p></div></div>
-          <div class="step-item"><div><h4>Ordeno la necesidad</h4><p style="font-size:.82rem; margin-top:4px;">Identifico el servicio que mejor se adapta a tu caso.</p></div></div>
-          <div class="step-item"><div><h4>Propongo la solución adecuada</h4><p style="font-size:.82rem; margin-top:4px;">Sin vender más de lo que necesitás.</p></div></div>
-          <div class="step-item"><div><h4>Creo el material</h4><p style="font-size:.82rem; margin-top:4px;">Trabajo con foco en el uso real del entregable.</p></div></div>
-          <div class="step-item"><div><h4>Entrego y cerramos</h4><p style="font-size:.82rem; margin-top:4px;">Material listo para usar, publicar o compartir.</p></div></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<hr class="section-divider">
-
-
-<!-- ══════════════════════════════════════════════════════════ -->
-<!-- 4. LÍNEAS PRINCIPALES                                      -->
+<!-- 2. QUÉ HAGO — líneas principales                          -->
 <!-- ══════════════════════════════════════════════════════════ -->
 <section class="section" id="servicios">
   <div class="container">
@@ -526,7 +475,7 @@
       <p style="margin-top:12px;">Estas son las líneas principales de Soy Majo. Cada una tiene entregables claros, forma de cotización y un proceso definido.</p>
     </div>
 
-    <div class="lineas-grid" style="margin-top:40px;">
+    <div class="lineas-grid">
 
       <div class="linea-card reveal">
         <div class="ph linea-card-thumb" style="border-radius:0;">Imagen de trabajo de identidad visual<br><small>1200×600px</small></div>
@@ -543,7 +492,7 @@
         <div class="linea-card-body">
           <p class="linea-num">02</p>
           <h3>Invitaciones digitales tipo página web</h3>
-          <p>Invitaciones personalizadas para eventos que necesitan una experiencia digital clara y bonita.</p>
+          <p>Invitaciones personalizadas para eventos con experiencia digital clara y bonita.</p>
           <a href="#invitaciones" class="btn btn-ghost">Ver invitaciones</a>
         </div>
       </div>
@@ -563,23 +512,23 @@
         <div class="linea-card-body">
           <p class="linea-num">04</p>
           <h3>Páginas web personalizadas</h3>
-          <p>Páginas hechas según el objetivo, estructura, contenido y funciones que necesita el proyecto.</p>
+          <p>Páginas hechas según el objetivo, estructura, contenido y funciones del proyecto.</p>
           <a href="#web" class="btn btn-ghost">Cotizar página</a>
         </div>
       </div>
 
       <div class="linea-card reveal">
-        <div class="ph linea-card-thumb" style="border-radius:0;">Ejemplo de documento/presentación<br><small>1200×600px</small></div>
+        <div class="ph linea-card-thumb" style="border-radius:0;">Ejemplo de presentación/documento<br><small>1200×600px</small></div>
         <div class="linea-card-body">
           <p class="linea-num">05</p>
           <h3>Presentaciones y documentos profesionales</h3>
-          <p>Presentaciones, portafolios, catálogos, media kits, propuestas y PDFs listos para enviar.</p>
+          <p>Portafolios, catálogos, media kits, propuestas y PDFs listos para enviar.</p>
           <a href="#documentos" class="btn btn-ghost">Ver documentos</a>
         </div>
       </div>
 
       <div class="linea-card reveal">
-        <div class="ph linea-card-thumb" style="border-radius:0;">Foto de reunión o proceso creativo<br><small>1200×600px</small></div>
+        <div class="ph linea-card-thumb" style="border-radius:0;">Foto de proceso creativo<br><small>1200×600px</small></div>
         <div class="linea-card-body">
           <p class="linea-num">06</p>
           <h3>Asesoría estratégica con IA + rediseño</h3>
@@ -596,17 +545,85 @@
 
 
 <!-- ══════════════════════════════════════════════════════════ -->
-<!-- 5. MANUAL DE MARCA                                         -->
+<!-- 3. CÓMO TRABAJO — pasos uno por uno al hacer scroll       -->
 <!-- ══════════════════════════════════════════════════════════ -->
-<section class="section bg-mint" id="marca" style="background:var(--mint);">
+<section class="como-section" id="como-trabajo">
+  <div class="container">
+    <div class="como-inner">
+
+      <!-- Columna izquierda: sticky -->
+      <div class="como-left reveal">
+        <p class="eyebrow">Cómo trabajo</p>
+        <h2>Ideas, piezas y materiales con forma clara.</h2>
+        <div class="quote-block">
+          <p>"La idea es que recibás algo que podás usar: publicar, enviar, presentar, compartir o vender con más seguridad."</p>
+        </div>
+        <div style="margin-top:28px;">
+          <a href="#cotizar" class="btn btn-primary">Quiero cotizar →</a>
+        </div>
+      </div>
+
+      <!-- Columna derecha: pasos con reveal individual -->
+      <div class="como-right">
+
+        <div class="step-animated" data-step>
+          <div class="step-dot"></div>
+          <div class="step-body">
+            <h4>Escucho primero</h4>
+            <p>Entiendo qué querés lograr antes de proponer nada. La conversación es el punto de partida.</p>
+          </div>
+        </div>
+
+        <div class="step-animated" data-step>
+          <div class="step-dot"></div>
+          <div class="step-body">
+            <h4>Ordeno la necesidad</h4>
+            <p>Identifico qué es lo que realmente necesitás resolver y cuál es la mejor herramienta para eso.</p>
+          </div>
+        </div>
+
+        <div class="step-animated" data-step>
+          <div class="step-dot"></div>
+          <div class="step-body">
+            <h4>Propongo la solución adecuada</h4>
+            <p>Sin vender más de lo que necesitás. La propuesta siempre parte de tu caso real.</p>
+          </div>
+        </div>
+
+        <div class="step-animated" data-step>
+          <div class="step-dot"></div>
+          <div class="step-body">
+            <h4>Creo el material</h4>
+            <p>Trabajo con foco en el uso real del entregable: algo que puedas usar desde el primer día.</p>
+          </div>
+        </div>
+
+        <div class="step-animated" data-step>
+          <div class="step-dot"></div>
+          <div class="step-body">
+            <h4>Entrego y cerramos</h4>
+            <p>Recibís el material final listo para usar, publicar, enviar o compartir con más seguridad.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- 4. MANUAL DE MARCA                                         -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section class="section" id="marca" style="background:rgba(200,240,224,.18);">
   <div class="container">
     <div class="marca-grid">
-
       <div class="reveal">
         <p class="eyebrow">Identidad visual</p>
         <h2>Manual de marca e identidad visual</h2>
-        <p style="margin-top:16px;">Cuando trabajamos identidad visual, construimos una base completa para que tu proyecto se vea coherente, profesional y fácil de aplicar.</p>
-
+        <p style="margin-top:16px;">Construimos una base completa para que tu proyecto se vea coherente, profesional y fácil de aplicar desde el primer día.</p>
         <div style="margin-top:28px;">
           <h4 style="margin-bottom:10px;">Incluye</h4>
           <div class="pill-list">
@@ -617,7 +634,6 @@
             <span class="pill">Plantillas Canva</span><span class="pill">4 aplicaciones</span>
           </div>
         </div>
-
         <div style="margin-top:24px;">
           <h4 style="margin-bottom:10px;">Aplicaciones a elegir</h4>
           <div class="pill-list">
@@ -627,22 +643,18 @@
             <span class="pill pill-rose">Catálogo visual</span><span class="pill pill-rose">+ más</span>
           </div>
         </div>
-
         <div style="margin-top:32px;">
           <a href="#cotizar" class="btn btn-primary">Quiero cotizar mi manual de marca</a>
         </div>
-        <div class="nota" style="margin-top:16px;">Las aplicaciones extra se pueden sumar según lo que necesite tu proyecto.</div>
+        <div class="nota">Las aplicaciones extra se pueden sumar según lo que necesite tu proyecto.</div>
       </div>
-
-      <!-- Mockup -->
-      <div class="reveal" style="display:flex; flex-direction:column; gap:16px;">
+      <div class="reveal" style="display:flex; flex-direction:column; gap:16px; transition-delay:.15s">
         <div class="ph ph-mockup">Mockup de manual de marca / logo / aplicaciones<br><small>800×720px</small></div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
           <div class="ph ph-thumb">Aplicación 1<br><small>600×320px</small></div>
           <div class="ph ph-thumb">Aplicación 2<br><small>600×320px</small></div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
@@ -651,24 +663,19 @@
 
 
 <!-- ══════════════════════════════════════════════════════════ -->
-<!-- 6. INVITACIONES                                            -->
+<!-- 5. INVITACIONES                                            -->
 <!-- ══════════════════════════════════════════════════════════ -->
 <section class="section" id="invitaciones">
   <div class="container">
     <div class="inv-grid">
-
-      <!-- Mockup phone -->
       <div class="reveal" style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
         <div class="ph ph-phone">Pantalla 1<br>Portada invitación<br><small>480×960px</small></div>
         <div class="ph ph-phone" style="margin-top:32px;">Pantalla 2<br>Fecha / RSVP<br><small>480×960px</small></div>
       </div>
-
-      <!-- Texto -->
-      <div class="reveal">
+      <div class="reveal" style="transition-delay:.15s">
         <p class="eyebrow">Invitaciones</p>
         <h2>Invitaciones digitales tipo página web</h2>
         <p style="margin-top:16px;">Una invitación personalizada, funcional y fácil de compartir. Puede ser sencilla o una experiencia más completa, según el tipo de evento.</p>
-
         <div style="margin-top:28px;">
           <h4 style="margin-bottom:10px;">Puede incluir</h4>
           <div class="pill-list">
@@ -678,7 +685,6 @@
             <span class="pill">Galería</span><span class="pill">Mapa</span>
           </div>
         </div>
-
         <div style="margin-top:24px;">
           <h4 style="margin-bottom:10px;">Ideal para</h4>
           <div class="pill-list">
@@ -687,12 +693,8 @@
             <span class="pill pill-mint">Lanzamientos</span><span class="pill pill-mint">Celebraciones</span>
           </div>
         </div>
-
-        <div style="margin-top:32px;">
-          <a href="#cotizar" class="btn btn-primary">Crear mi invitación digital</a>
-        </div>
+        <a href="#cotizar" class="btn btn-primary" style="margin-top:32px;">Crear mi invitación digital</a>
       </div>
-
     </div>
   </div>
 </section>
@@ -701,9 +703,9 @@
 
 
 <!-- ══════════════════════════════════════════════════════════ -->
-<!-- 7–10. AURA                                                 -->
+<!-- 6. AURA                                                    -->
 <!-- ══════════════════════════════════════════════════════════ -->
-<section class="section bg-rose" id="aura" style="background:var(--rose);">
+<section class="section" id="aura" style="background:rgba(255,207,216,.15);">
   <div class="container">
     <div class="reveal" style="max-width:560px;">
       <p class="eyebrow">Fotografía</p>
@@ -711,25 +713,24 @@
       <p style="margin-top:12px;">Mi línea de fotografía y contenido visual. Para personas, eventos, hospedajes y espacios que necesitan imágenes útiles, emocionales y listas para usar.</p>
     </div>
 
-    <!-- Tabs -->
     <div class="aura-tabs reveal" id="auraTabs">
       <button class="aura-tab active" data-tab="eventos">Aura Eventos</button>
       <button class="aura-tab" data-tab="sesiones">Aura Sesiones</button>
       <button class="aura-tab" data-tab="espacios">Aura Espacios</button>
     </div>
 
-    <!-- ── EVENTOS ── -->
+    <!-- EVENTOS -->
     <div class="aura-content reveal" id="tab-eventos">
       <div>
         <div class="ph ph-mockup">Fotos de evento<br><small>800×720px</small></div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px;">
           <div class="ph ph-thumb">Detalle evento<br><small>400×320px</small></div>
-          <div class="ph ph-thumb">Ambiente evento<br><small>400×320px</small></div>
+          <div class="ph ph-thumb">Ambiente<br><small>400×320px</small></div>
         </div>
       </div>
       <div>
         <h3>Contenido móvil para cuidar cómo se recuerda un momento importante.</h3>
-        <p style="margin-top:12px; font-size:.85rem;">Bodas, cumpleaños, eventos corporativos, lanzamientos e inauguraciones. Momentos, ambiente y detalles capturados de forma natural.</p>
+        <p style="margin-top:12px; font-size:.85rem;">Bodas, cumpleaños, eventos corporativos, lanzamientos e inauguraciones.</p>
         <div class="precios-stack" style="margin-top:24px;" id="precios">
           <div class="precio-card">
             <div><p class="precio-name">Primer Instante</p><p class="precio-sub">4 horas · 2 videos editados · Álbum</p></div>
@@ -748,7 +749,7 @@
       </div>
     </div>
 
-    <!-- ── SESIONES ── -->
+    <!-- SESIONES -->
     <div class="aura-content reveal" id="tab-sesiones" style="display:none;">
       <div>
         <div class="ph ph-mockup">Fotos de sesión<br><small>800×720px</small></div>
@@ -759,7 +760,7 @@
       </div>
       <div>
         <h3>Fotografías para personas, viajes y momentos especiales.</h3>
-        <p style="margin-top:12px; font-size:.85rem;">Sesiones pensadas para capturar quién sos, lo que estás viviendo o el recuerdo que querés guardar.</p>
+        <p style="margin-top:12px; font-size:.85rem;">Sesiones para capturar quién sos, lo que estás viviendo o el recuerdo que querés guardar.</p>
         <div class="precios-stack" style="margin-top:24px;">
           <div class="precio-card">
             <div><p class="precio-name">Sesión individual</p><p class="precio-sub">Mínimo 50 fotos editadas</p></div>
@@ -778,7 +779,7 @@
       </div>
     </div>
 
-    <!-- ── ESPACIOS ── -->
+    <!-- ESPACIOS -->
     <div class="aura-content reveal" id="tab-espacios" style="display:none;">
       <div>
         <div class="ph ph-mockup">Fotos de espacios / Airbnb<br><small>800×720px</small></div>
@@ -789,7 +790,7 @@
       </div>
       <div>
         <h3>Fotografía estratégica para que tu espacio se vea más confiable y listo para reservar.</h3>
-        <p style="margin-top:12px; font-size:.85rem;">Airbnb, hospedajes, bienes raíces, restaurantes, oficinas y espacios comerciales.</p>
+        <p style="margin-top:12px; font-size:.85rem;">Airbnb, hospedajes, bienes raíces, restaurantes y espacios comerciales.</p>
         <div class="precios-stack" style="margin-top:24px;">
           <div class="precio-card">
             <div><p class="precio-name">Esencial</p><p class="precio-sub">10 fotos HDR · Interior/exterior · 48h</p></div>
@@ -805,7 +806,7 @@
           </div>
         </div>
         <a href="#cotizar" class="btn btn-primary" style="margin-top:20px;">Cotizar espacio</a>
-        <div class="nota" style="margin-top:12px;">El espacio debe estar limpio y ordenado antes de iniciar la sesión.</div>
+        <div class="nota">El espacio debe estar limpio y ordenado antes de iniciar la sesión.</div>
       </div>
     </div>
 
@@ -816,20 +817,18 @@
 
 
 <!-- ══════════════════════════════════════════════════════════ -->
-<!-- 11. PÁGINAS WEB                                            -->
+<!-- 7. PÁGINAS WEB                                             -->
 <!-- ══════════════════════════════════════════════════════════ -->
 <section class="section" id="web">
   <div class="container">
     <div class="web-grid">
-
       <div class="reveal">
         <p class="eyebrow">Páginas web</p>
         <h2>Páginas web hechas según lo que necesitás.</h2>
         <p style="margin-top:16px;">Diseño páginas web personalizadas para marcas, proyectos, eventos, alojamientos y servicios. Antes de cotizar, revisamos qué necesitás comunicar, vender o presentar.</p>
-
         <div style="margin-top:24px;">
           <h4 style="margin-bottom:10px;">Puede ser</h4>
-          <div class="puede-ser-grid">
+          <div class="pill-list">
             <span class="pill">Landing page</span><span class="pill">Página de servicios</span>
             <span class="pill">Portafolio</span><span class="pill">Catálogo</span>
             <span class="pill">Página de evento</span><span class="pill">Airbnb</span>
@@ -837,23 +836,18 @@
             <span class="pill">Página HTML personalizada</span>
           </div>
         </div>
-
-        <div style="margin-top:28px; background:var(--lila); border-radius:var(--radius-sm); padding:20px 24px;">
+        <div style="margin-top:28px; background:rgba(228,222,255,.5); border-radius:var(--radius-sm); padding:20px 24px; backdrop-filter:blur(8px);">
           <p style="color:var(--ink); font-size:.9rem;"><strong>Desde ₡85.000</strong> para páginas básicas.<br>Proyectos más completos se cotizan según alcance.</p>
         </div>
-
         <a href="#cotizar" class="btn btn-primary" style="margin-top:24px;">Agendar reunión para cotizar</a>
       </div>
-
-      <!-- Mockup -->
-      <div class="reveal" style="display:flex; flex-direction:column; gap:14px;">
+      <div class="reveal" style="display:flex; flex-direction:column; gap:14px; transition-delay:.15s">
         <div class="ph ph-mockup">Mockup de desktop (pantalla web)<br><small>800×480px</small></div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-          <div class="ph ph-phone" style="height:220px; width:100%;">Vista móvil<br><small>400×480px</small></div>
-          <div class="ph ph-phone" style="height:220px; width:100%;">Sección interna<br><small>400×480px</small></div>
+          <div class="ph ph-thumb" style="height:180px;">Vista móvil<br><small>400×480px</small></div>
+          <div class="ph ph-thumb" style="height:180px;">Sección interna<br><small>400×480px</small></div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
@@ -862,16 +856,15 @@
 
 
 <!-- ══════════════════════════════════════════════════════════ -->
-<!-- 12. DOCUMENTOS                                             -->
+<!-- 8. DOCUMENTOS                                              -->
 <!-- ══════════════════════════════════════════════════════════ -->
-<section class="section" id="documentos" style="background:var(--lila);">
+<section class="section" id="documentos" style="background:rgba(228,222,255,.18);">
   <div class="container">
     <div class="reveal" style="max-width:600px;">
       <p class="eyebrow">Documentos</p>
       <h2>Documentos que se entienden, se ven bien y se pueden enviar con seguridad.</h2>
       <p style="margin-top:12px;">Convierto información suelta en materiales visuales listos para presentar, vender o compartir.</p>
     </div>
-
     <div style="display:grid; grid-template-columns:1fr 1.2fr; gap:64px; margin-top:40px; align-items:start;" class="reveal">
       <div>
         <h4 style="margin-bottom:12px;">Puede incluir</h4>
@@ -881,8 +874,7 @@
           <span class="pill">Propuestas comerciales</span><span class="pill">CV visual</span>
           <span class="pill">Informes visuales</span><span class="pill">PDFs profesionales</span>
         </div>
-
-        <div class="docs-precios" style="margin-top:28px;">
+        <div class="docs-precios">
           <div class="doc-precio-item">
             <p style="font-size:.75rem; font-weight:600; color:var(--lila-d);">Reunión inicial</p>
             <p class="valor">₡20.000</p>
@@ -908,11 +900,9 @@
             <p class="valor">Por cotización</p>
           </div>
         </div>
-
         <a href="#cotizar" class="btn btn-primary" style="margin-top:24px;">Cotizar documento</a>
-        <div class="nota" style="margin-top:12px; background:white;">La reunión inicial (₡20.000) se descuenta cuando el proyecto se realiza.</div>
+        <div class="nota">La reunión inicial (₡20.000) se descuenta cuando el proyecto se realiza.</div>
       </div>
-
       <div style="display:flex; flex-direction:column; gap:14px;">
         <div class="ph ph-mockup">Mockup de presentación / documento<br><small>800×540px</small></div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
@@ -921,7 +911,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </section>
 
@@ -929,7 +918,7 @@
 
 
 <!-- ══════════════════════════════════════════════════════════ -->
-<!-- 13. ASESORÍA                                               -->
+<!-- 9. ASESORÍA                                                -->
 <!-- ══════════════════════════════════════════════════════════ -->
 <section class="section" id="asesoria">
   <div class="container">
@@ -938,9 +927,7 @@
       <h2>Ordenemos tu idea y llevémosla a algo más claro.</h2>
       <p style="margin-top:12px;">Análisis, criterio creativo y mejoras aplicadas para avanzar con más seguridad. Primero me contás tu caso. Luego reviso, analizo y te devuelvo recomendaciones concretas.</p>
     </div>
-
     <div class="asesoria-grid reveal" style="margin-top:40px;">
-
       <div class="asesoria-card">
         <p class="eyebrow">Básico</p>
         <p class="precio">₡45.000</p>
@@ -948,7 +935,6 @@
         <p style="margin-top:8px; font-size:.82rem;">1 reunión de 60–75 min con recomendaciones generales.</p>
         <a href="#cotizar" class="btn btn-outline" style="margin-top:20px;">Agendar</a>
       </div>
-
       <div class="asesoria-card featured">
         <p class="eyebrow" style="color:var(--mint);">Más pedido</p>
         <p class="precio">₡75.000</p>
@@ -956,7 +942,6 @@
         <p style="margin-top:8px; font-size:.82rem;">Reunión + revisión de materiales + guía de acciones.</p>
         <a href="#cotizar" class="btn btn-mint" style="margin-top:20px;">Agendar</a>
       </div>
-
       <div class="asesoria-card">
         <p class="eyebrow">Con entregable</p>
         <p class="precio">₡120.000</p>
@@ -964,7 +949,6 @@
         <p style="margin-top:8px; font-size:.82rem;">2 reuniones + análisis + mejoras visuales puntuales.</p>
         <a href="#cotizar" class="btn btn-outline" style="margin-top:20px;">Agendar</a>
       </div>
-
       <div class="asesoria-card">
         <p class="eyebrow">Casos complejos</p>
         <p class="precio">Desde ₡160.000</p>
@@ -972,7 +956,6 @@
         <p style="margin-top:8px; font-size:.82rem;">Para proyectos con múltiples materiales y mayor alcance.</p>
         <a href="#cotizar" class="btn btn-outline" style="margin-top:20px;">Cotizar</a>
       </div>
-
     </div>
   </div>
 </section>
@@ -981,33 +964,26 @@
 
 
 <!-- ══════════════════════════════════════════════════════════ -->
-<!-- 14. PROCESO                                                -->
+<!-- 10. PROCESO                                                -->
 <!-- ══════════════════════════════════════════════════════════ -->
-<section class="section" id="proceso" style="background:var(--sand);">
+<section class="section" id="proceso">
   <div class="container">
     <div class="reveal" style="text-align:center; max-width:560px; margin:0 auto;">
-      <p class="eyebrow">Cómo trabajamos</p>
+      <p class="eyebrow">El proceso</p>
       <h2>Un proceso claro para trabajar con paz.</h2>
       <p style="margin-top:12px;">Cada proyecto tiene un inicio, un alcance, una entrega y un cierre.</p>
     </div>
-
     <div class="proceso-timeline reveal" style="margin-top:56px;">
-      <div class="proceso-step"><div class="proceso-dot">1</div><h4>Me contás</h4><p>Llegás con la idea como la tengás. WhatsApp, Instagram o formulario.</p></div>
-      <div class="proceso-step"><div class="proceso-dot">2</div><h4>Revisamos</h4><p>Identifico el servicio que mejor se adapta a tu necesidad real.</p></div>
-      <div class="proceso-step"><div class="proceso-dot">3</div><h4>Definimos</h4><p>Dejamos claro alcance, costo, revisiones y tiempos de entrega.</p></div>
-      <div class="proceso-step"><div class="proceso-dot">4</div><h4>Confirmás</h4><p>Pago completo, adelanto, reserva o reunión inicial según el servicio.</p></div>
+      <div class="proceso-step"><div class="proceso-dot">1</div><h4>Me contás</h4><p>Llegás con la idea como la tengás.</p></div>
+      <div class="proceso-step"><div class="proceso-dot">2</div><h4>Revisamos</h4><p>Identifico el servicio que mejor se adapta.</p></div>
+      <div class="proceso-step"><div class="proceso-dot">3</div><h4>Definimos</h4><p>Alcance, costo, revisiones y tiempos.</p></div>
+      <div class="proceso-step"><div class="proceso-dot">4</div><h4>Confirmás</h4><p>Pago, adelanto o reserva según el servicio.</p></div>
     </div>
     <div class="proceso-timeline reveal" style="margin-top:0;">
-      <div class="proceso-step"><div class="proceso-dot">5</div><h4>Desarrollo</h4><p>Trabajo la propuesta, diseño, edición o análisis según el servicio.</p></div>
-      <div class="proceso-step"><div class="proceso-dot">6</div><h4>Revisamos</h4><p>Cada proyecto incluye las revisiones acordadas para afinar el resultado.</p></div>
-      <div class="proceso-step"><div class="proceso-dot">7</div><h4>Entrego</h4><p>Recibís el material final listo para usar, publicar o compartir.</p></div>
-      <div class="proceso-step"><div class="proceso-dot" style="background:var(--mint-d); color:white; border-color:var(--mint-d);">✓</div><h4>Cerramos</h4><p>Proyecto cerrado con entregables listos y proceso documentado.</p></div>
-    </div>
-
-    <div class="reveal" style="text-align:center; margin-top:40px;">
-      <div class="quote-block" style="max-width:560px; margin:0 auto;">
-        <p>"La claridad desde el inicio ayuda a que el proceso sea más tranquilo para ambas partes."</p>
-      </div>
+      <div class="proceso-step"><div class="proceso-dot">5</div><h4>Desarrollo</h4><p>Trabajo la propuesta o diseño acordado.</p></div>
+      <div class="proceso-step"><div class="proceso-dot">6</div><h4>Revisamos</h4><p>Ajustamos y afinamos el resultado.</p></div>
+      <div class="proceso-step"><div class="proceso-dot">7</div><h4>Entrego</h4><p>Material final listo para usar.</p></div>
+      <div class="proceso-step"><div class="proceso-dot" style="background:var(--mint-d); color:white; border-color:var(--mint-d);">✓</div><h4>Cerramos</h4><p>Proyecto cerrado y entregables listos.</p></div>
     </div>
   </div>
 </section>
@@ -1016,7 +992,7 @@
 
 
 <!-- ══════════════════════════════════════════════════════════ -->
-<!-- 15. CONDICIONES                                            -->
+<!-- 11. CONDICIONES                                            -->
 <!-- ══════════════════════════════════════════════════════════ -->
 <section class="section-sm">
   <div class="container">
@@ -1024,34 +1000,13 @@
       <p class="eyebrow">Para trabajar con claridad</p>
       <h2>Para que todo fluya con claridad.</h2>
     </div>
-
     <div class="condiciones-grid reveal">
-      <div class="condicion-card">
-        <div class="condicion-icon">📐</div>
-        <h4>Alcance</h4>
-        <p style="margin-top:6px; font-size:.82rem;">El alcance define piezas, formatos, entregables y revisiones incluidas.</p>
-      </div>
-      <div class="condicion-card">
-        <div class="condicion-icon">⏱</div>
-        <h4>Tiempos</h4>
-        <p style="margin-top:6px; font-size:.82rem;">Comienzan cuando el proyecto está confirmado y la información fue enviada.</p>
-      </div>
-      <div class="condicion-card">
-        <div class="condicion-icon">🔄</div>
-        <h4>Revisiones</h4>
-        <p style="margin-top:6px; font-size:.82rem;">Ayudan a ajustar detalles, corregir información y afinar el material.</p>
-      </div>
-      <div class="condicion-card">
-        <div class="condicion-icon">➕</div>
-        <h4>Extras</h4>
-        <p style="margin-top:6px; font-size:.82rem;">Cualquier necesidad adicional puede revisarse y cotizarse como extra.</p>
-      </div>
-      <div class="condicion-card">
-        <div class="condicion-icon">📦</div>
-        <h4>Entrega</h4>
-        <p style="margin-top:6px; font-size:.82rem;">Los archivos finales se entregan cuando el proyecto está completado.</p>
-      </div>
-      <div class="condicion-card" style="background:var(--lila);">
+      <div class="condicion-card"><div class="condicion-icon">📐</div><h4>Alcance</h4><p style="margin-top:6px; font-size:.82rem;">El alcance define piezas, formatos, entregables y revisiones incluidas.</p></div>
+      <div class="condicion-card"><div class="condicion-icon">⏱</div><h4>Tiempos</h4><p style="margin-top:6px; font-size:.82rem;">Comienzan cuando el proyecto está confirmado y la información fue enviada.</p></div>
+      <div class="condicion-card"><div class="condicion-icon">🔄</div><h4>Revisiones</h4><p style="margin-top:6px; font-size:.82rem;">Ayudan a ajustar detalles, corregir información y afinar el material.</p></div>
+      <div class="condicion-card"><div class="condicion-icon">➕</div><h4>Extras</h4><p style="margin-top:6px; font-size:.82rem;">Cualquier necesidad adicional puede revisarse y cotizarse como extra.</p></div>
+      <div class="condicion-card"><div class="condicion-icon">📦</div><h4>Entrega</h4><p style="margin-top:6px; font-size:.82rem;">Los archivos finales se entregan cuando el proyecto está completado.</p></div>
+      <div class="condicion-card" style="background:rgba(228,222,255,.5); backdrop-filter:blur(8px);">
         <div class="condicion-icon">📄</div>
         <h4>Ver condiciones completas</h4>
         <p style="margin-top:6px; font-size:.82rem;">Todos los detalles de cómo trabajamos juntos.</p>
@@ -1065,7 +1020,7 @@
 
 
 <!-- ══════════════════════════════════════════════════════════ -->
-<!-- 16. FAQ                                                    -->
+<!-- 12. FAQ                                                    -->
 <!-- ══════════════════════════════════════════════════════════ -->
 <section class="section" id="faq">
   <div class="container">
@@ -1073,57 +1028,33 @@
       <p class="eyebrow">Preguntas frecuentes</p>
       <h2>Preguntas que pueden ayudarte antes de cotizar.</h2>
     </div>
-
     <div class="faq-list reveal">
-      <div class="faq-item">
-        <div class="faq-q">¿Puedo llegar sin tener todo claro?</div>
-        <div class="faq-a">Sí. Podés llegar con una idea inicial y la ordenamos según el servicio que mejor se adapte a tu necesidad.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">¿Cómo sé cuál servicio necesito?</div>
-        <div class="faq-a">Podés usar el selector inicial o escribirme contando qué querés lograr. A partir de eso te recomiendo el camino más adecuado.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">¿Cómo funciona el manual de marca?</div>
-        <div class="faq-a">Construimos una identidad visual completa: logo, variaciones, paleta, tipografías, archivos finales y aplicaciones listas para usar.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">¿Las invitaciones digitales son personalizadas?</div>
-        <div class="faq-a">Sí. Se crean tipo página web y pueden incluir información, ubicación, confirmación, itinerario, menú, cuenta regresiva y otros detalles.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">¿Cómo se cotizan las páginas web?</div>
-        <div class="faq-a">Según objetivo, secciones, funciones, textos, diseño y nivel de complejidad del proyecto.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">¿La reunión inicial se descuenta?</div>
-        <div class="faq-a">En documentos, webs o proyectos que requieren análisis previo, la reunión inicial tiene un costo de ₡20.000 y se descuenta cuando el proyecto se realiza.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">¿Puedo pedir algo diferente a la lista?</div>
-        <div class="faq-a">Sí. Podemos revisar la necesidad y ver si se adapta a una de las líneas de trabajo o cotizarlo aparte.</div>
-      </div>
+      <div class="faq-item"><div class="faq-q">¿Puedo llegar sin tener todo claro?</div><div class="faq-a">Sí. Podés llegar con una idea inicial y la ordenamos según el servicio que mejor se adapte a tu necesidad.</div></div>
+      <div class="faq-item"><div class="faq-q">¿Cómo sé cuál servicio necesito?</div><div class="faq-a">Podés escribirme contando qué querés lograr. A partir de eso te recomiendo el camino más adecuado.</div></div>
+      <div class="faq-item"><div class="faq-q">¿Cómo funciona el manual de marca?</div><div class="faq-a">Construimos una identidad visual completa: logo, variaciones, paleta, tipografías, archivos finales y aplicaciones listas para usar.</div></div>
+      <div class="faq-item"><div class="faq-q">¿Las invitaciones digitales son personalizadas?</div><div class="faq-a">Sí. Se crean tipo página web y pueden incluir información, ubicación, confirmación, itinerario, menú, cuenta regresiva y más.</div></div>
+      <div class="faq-item"><div class="faq-q">¿Cómo se cotizan las páginas web?</div><div class="faq-a">Según objetivo, secciones, funciones, textos, diseño y nivel de complejidad del proyecto.</div></div>
+      <div class="faq-item"><div class="faq-q">¿La reunión inicial se descuenta?</div><div class="faq-a">Sí. En documentos, webs o proyectos que requieren análisis previo, los ₡20.000 se descuentan cuando el proyecto se realiza.</div></div>
+      <div class="faq-item"><div class="faq-q">¿Puedo pedir algo diferente a la lista?</div><div class="faq-a">Sí. Podemos revisar la necesidad y ver si se adapta a una de las líneas de trabajo o cotizarlo aparte.</div></div>
     </div>
   </div>
 </section>
 
 
 <!-- ══════════════════════════════════════════════════════════ -->
-<!-- 17. CTA FINAL                                              -->
+<!-- 13. CTA FINAL                                              -->
 <!-- ══════════════════════════════════════════════════════════ -->
-<div id="cotizar" class="container reveal">
+<div id="cotizar" class="container reveal" style="margin-top:80px;">
   <div class="cta-final">
     <p class="eyebrow" style="color:var(--mint);">¿Lista para empezar?</p>
     <h2>Si tenés una idea dando vueltas, podemos darle forma.</h2>
     <p>A veces el primer paso es ordenar. A veces es diseñar, fotografiar, escribir o construir una página. Contame qué necesitás resolver.</p>
     <div class="cta-final-btns">
       <a href="#" class="btn btn-white">Quiero cotizar</a>
-      <a href="#selector" class="btn btn-outline-white btn">Necesito ayuda para elegir</a>
-      <a href="https://wa.me/" class="btn btn-mint">💬 Escribirme por WhatsApp</a>
+      <a href="#servicios" class="btn btn-outline-white btn">Ver servicios</a>
+      <a href="https://wa.me/" class="btn btn-mint">💬 WhatsApp</a>
     </div>
-    <p style="margin-top:32px; font-size:.78rem; color:rgba(255,255,255,.4);">
-      Soluciones creativas puntuales. Entregas claras. Materiales listos para usar.
-    </p>
+    <p style="margin-top:32px; font-size:.78rem; color:rgba(255,255,255,.4);">Soluciones creativas puntuales. Entregas claras. Materiales listos para usar.</p>
   </div>
 </div>
 
@@ -1144,18 +1075,34 @@
 <!-- JS                                                         -->
 <!-- ══════════════════════════════════════════════════════════ -->
 <script>
-  // ── Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-  }, { threshold: 0.12 });
-  reveals.forEach(r => obs.observe(r));
+  // ── Scroll reveal genérico
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  revealEls.forEach(r => revealObs.observe(r));
+
+  // ── Pasos de "Cómo trabajo" — cada uno aparece por separado con delay
+  const steps = document.querySelectorAll('.step-animated');
+  const stepObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const idx = Array.from(steps).indexOf(e.target);
+        setTimeout(() => {
+          e.target.classList.add('visible');
+        }, idx * 160);
+        stepObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  steps.forEach(s => stepObs.observe(s));
 
   // ── Aura tabs
-  const tabs = document.querySelectorAll('.aura-tab');
-  tabs.forEach(tab => {
+  document.querySelectorAll('.aura-tab').forEach(tab => {
     tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.aura-tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
       document.querySelectorAll('[id^="tab-"]').forEach(c => c.style.display = 'none');
       document.getElementById('tab-' + tab.dataset.tab).style.display = 'grid';
@@ -1164,9 +1111,7 @@
 
   // ── FAQ accordion
   document.querySelectorAll('.faq-item').forEach(item => {
-    item.querySelector('.faq-q').addEventListener('click', () => {
-      item.classList.toggle('open');
-    });
+    item.querySelector('.faq-q').addEventListener('click', () => item.classList.toggle('open'));
   });
 </script>
 
