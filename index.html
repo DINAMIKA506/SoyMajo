@@ -224,21 +224,20 @@
     /* ── DOCS LAYOUT ── */
     .docs-inner{display:grid;grid-template-columns:1fr 1.1fr;gap:48px;margin-top:16px;align-items:start;}
 
-    /* ── ASESORÍA INTRO DOS COLUMNAS ── */
+    /* ── ASESORÍA INTRO — título izq + imagen der en misma fila ── */
     .asesoria-intro {
       display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: 64px;
-      align-items: center;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
     }
     .asesoria-intro-img img {
       width: 100%;
-      max-width: 520px;
       border-radius: var(--radius-lg);
       object-fit: contain;
     }
     @media(max-width:768px) {
-      .asesoria-intro { grid-template-columns: 1fr; gap: 32px; }
+      .asesoria-intro { grid-template-columns: 1fr; gap: 24px; }
       .asesoria-intro-img { order: -1; }
     }
 
@@ -618,12 +617,8 @@
           <a href="https://ordenyplan.com" target="_blank" class="btn btn-outline">Ver ejemplo</a>
         </div>
       </div>
-      <div class="reveal" style="display:flex;flex-direction:column;gap:14px;transition-delay:.15s">
-        <img src="fotos/web-mockup.png" alt="Mockup web" class="foto-web"/>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-          <img src="fotos/web-movil1.png" alt="Vista móvil 1" class="foto-thumb" style="height:180px;"/>
-          <img src="fotos/web-movil2.png" alt="Vista móvil 2" class="foto-thumb" style="height:180px;"/>
-        </div>
+      <div class="reveal" style="transition-delay:.15s">
+        <img src="fotos/web-mockup.png" alt="Mockup web" style="width:100%;border-radius:var(--radius-md);object-fit:contain;"/>
       </div>
     </div>
   </div>
@@ -660,13 +655,9 @@
         <a href="https://wa.me/50687037656?text=Quiero%20cotizar%20un%20documento%20profesional" class="btn btn-primary" style="margin-top:24px;">Cotizar documento</a>
         <div class="nota">La reunión inicial (₡20.000) se descuenta cuando el proyecto se realiza.</div>
       </div>
-      <!-- Fotos a la derecha, alineadas al top -->
-      <div style="display:flex;flex-direction:column;gap:14px;">
-        <img src="fotos/docs-mockup.png" alt="Mockup documento" class="foto-docs-main"/>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-          <img src="fotos/docs-slide1.png" alt="Slide ejemplo 1" class="foto-slide"/>
-          <img src="fotos/docs-slide2.png" alt="Slide ejemplo 2" class="foto-slide"/>
-        </div>
+      <!-- Foto a la derecha, una sola imagen grande -->
+      <div>
+        <img src="fotos/docs-mockup.png" alt="Mockup documento" style="width:100%;border-radius:var(--radius-md);object-fit:contain;"/>
       </div>
     </div>
   </div>
@@ -679,42 +670,49 @@
 <section class="section" id="asesoria">
   <div class="container">
 
-    <!-- Intro: dos columnas — texto izq, imagen der -->
-    <div class="asesoria-intro reveal">
-      <div class="asesoria-intro-text">
-        <p class="eyebrow">Asesoría</p>
-        <h2>Asesoría estratégica con IA + rediseño</h2>
-        <p style="margin-top:16px;line-height:1.75;">
+    <!-- Intro: título + imagen al mismo nivel arriba, texto debajo -->
+    <div class="reveal">
+
+      <!-- Fila superior: título izq, imagen der -->
+      <div class="asesoria-intro">
+        <div>
+          <p class="eyebrow">Asesoría</p>
+          <h2>Asesoría estratégica con IA + rediseño</h2>
+        </div>
+        <div class="asesoria-intro-img">
+          <img src="fotos/asesoria-principal.png" alt="Asesoría estratégica con Ordy" style="width:100%;object-fit:contain;border-radius:var(--radius-lg);"/>
+        </div>
+      </div>
+
+      <!-- Texto debajo, ancho completo -->
+      <div style="max-width:680px;margin-top:24px;">
+        <p style="line-height:1.75;">
           En mis asesorías te ayudo a ordenar ideas, materiales, servicios o decisiones que ya tenés dando vueltas, para convertirlas en una ruta más clara y fácil de accionar.
         </p>
         <p style="margin-top:14px;font-weight:500;color:var(--ink);font-size:.95rem;line-height:1.75;">
           Primero escuchamos. Luego ordenamos. Y después definimos qué herramienta, material o mejora tiene más sentido para vos.
         </p>
+      </div>
 
-        <!-- Bloque Ordy integrado bajo el texto -->
-        <div class="ordy-block" style="margin-top:32px;">
-          <div class="ordy-block-inner">
-            <div class="ordy-block-text">
-              <p class="ordy-label">✦ Metodología integrada</p>
-              <h3 style="font-family:var(--f-display);font-size:1.3rem;font-weight:700;color:var(--ink);margin-bottom:10px;">Asesorías con Ordy integrado</h3>
-              <p style="font-size:.88rem;line-height:1.75;color:var(--ink-60);">
-                Ordy es parte de mi forma de acompañar. Lo uso para ordenar la información del proyecto, identificar patrones, detectar vacíos y convertir la conversación en una guía más clara para avanzar.
-              </p>
-              <p style="font-size:.88rem;line-height:1.75;color:var(--ink-60);margin-top:8px;">
-                Así la asesoría no se queda solo en ideas: salís con más claridad sobre qué tenés, qué necesitás resolver y cuál puede ser el siguiente paso.
-              </p>
-            </div>
-            <div class="ordy-block-cta">
-              <a href="https://www.ordenyplan.com/" target="_blank" class="btn btn-ordy">Conocé Ordy →</a>
-            </div>
+      <!-- Bloque Ordy debajo del texto -->
+      <div class="ordy-block" style="margin-top:32px;">
+        <div class="ordy-block-inner">
+          <div class="ordy-block-text">
+            <p class="ordy-label">✦ Metodología integrada</p>
+            <h3 style="font-family:var(--f-display);font-size:1.3rem;font-weight:700;color:var(--ink);margin-bottom:10px;">Asesorías con Ordy integrado</h3>
+            <p style="font-size:.88rem;line-height:1.75;color:var(--ink-60);">
+              Ordy es parte de mi forma de acompañar. Lo uso para ordenar la información del proyecto, identificar patrones, detectar vacíos y convertir la conversación en una guía más clara para avanzar.
+            </p>
+            <p style="font-size:.88rem;line-height:1.75;color:var(--ink-60);margin-top:8px;">
+              Así la asesoría no se queda solo en ideas: salís con más claridad sobre qué tenés, qué necesitás resolver y cuál puede ser el siguiente paso.
+            </p>
+          </div>
+          <div class="ordy-block-cta">
+            <a href="https://www.ordenyplan.com/" target="_blank" class="btn btn-ordy">Conocé Ordy →</a>
           </div>
         </div>
       </div>
 
-      <!-- Imagen derecha -->
-      <div class="asesoria-intro-img">
-        <img src="fotos/asesoria-principal.png" alt="Asesoría estratégica con Ordy" style="width:100%;border-radius:var(--radius-lg);object-fit:contain;"/>
-      </div>
     </div>
 
     <!-- Tarjetas de precios -->
